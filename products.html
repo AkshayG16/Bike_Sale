@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Products - TVS Bike Sales</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+        }
+
+        .navbar {
+            background: rgba(0, 0, 0, 0.95);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            color: #ff6b35;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: #ff6b35;
+            color: white;
+        }
+
+        .products-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .products-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .category-tabs {
+            max-width: 1200px;
+            margin: 2rem auto;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            border: none;
+            background: #e0e0e0;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background: #ff6b35;
+            color: white;
+        }
+
+        .products-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-info h3 {
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .product-info p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            color: #ff6b35;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .buy-btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: #ff6b35;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+            text-align: center;
+        }
+
+        .buy-btn:hover {
+            background: #e55a2b;
+        }
+
+        .footer {
+            background: #111;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .close {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .payment-option button {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .payment-option button:hover {
+            background: #ff6b35;
+            color: white;
+        }
+
+        .payment-form {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .payment-form input, .payment-form select {
+            width: 100%;
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 1rem;
+            background: #d4edda;
+            color: #155724;
+            border-radius: 5px;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">TVS <span>Bikes</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html" class="active">Our Products</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="products-header">
+        <h1>Our Premium Collection</h1>
+        <p>Discover the perfect ride that matches your style and needs</p>
+    </div>
+
+    <div class="category-tabs">
+        <button class="tab-btn active" onclick="filterProducts('all')">All Products</button>
+        <button class="tab-btn" onclick="filterProducts('motorcycles')">Motorcycles</button>
+        <button class="tab-btn" onclick="filterProducts('scooters')">Scooters</button>
+        <button class="tab-btn" onclick="filterProducts('electric')">Electric Vehicles</button>
+    </div>
+
+    <div class="products-container">
+        <div class="product-grid" id="productGrid"></div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="modal" id="paymentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Complete Your Purchase</h3>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div id="productDetails"></div>
+            <div class="payment-option">
+                <h4>Select Payment Method</h4>
+                <button onclick="showPaymentForm('card')">💳 Credit/Debit Card</button>
+                <button onclick="showPaymentForm('upi')">📱 UPI</button>
+                <button onclick="showPaymentForm('netbanking')">🏦 Net Banking</button>
+            </div>
+            <div id="cardForm" class="payment-form">
+                <h4>Card Details</h4>
+                <input type="text" id="cardNumber" placeholder="Card Number" maxlength="16">
+                <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5">
+                <input type="text" id="cardCVV" placeholder="CVV" maxlength="3">
+                <button class="buy-btn" onclick="processPayment('card')">Pay Now</button>
+            </div>
+            <div id="upiForm" class="payment-form">
+                <h4>UPI Details</h4>
+                <input type="text" id="upiId" placeholder="Enter UPI ID (e.g., name@okhdfcbank)">
+                <button class="buy-btn" onclick="processPayment('upi')">Pay Now</button>
+            </div>
+            <div id="netbankingForm" class="payment-form">
+                <h4>Net Banking</h4>
+                <select id="bankSelect">
+                    <option>SBI</option>
+                    <option>HDFC Bank</option>
+                    <option>ICICI Bank</option>
+                    <option>Axis Bank</option>
+                </select>
+                <button class="buy-btn" onclick="processPayment('netbanking')">Proceed to Bank</button>
+            </div>
+            <div id="successMessage" class="success-message"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 TVS Bike Sales. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Product Database
+        const products = {
+            motorcycles: [
+                { id: 1, name: "TVS Apache RTR 160", price: "₹1,17,790", desc: "Race-inspired performance machine", img: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=400" },
+                { id: 2, name: "TVS Apache RTR 200", price: "₹1,39,990", desc: "Powerful 200cc engine with race dynamics", img: "https://images.unsplash.com/photo-1558981852-426c6c22a060?w=400" },
+                { id: 3, name: "TVS Raider 125", price: "₹99,990", desc: "Sporty 125cc commuter", img: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=400" },
+                { id: 4, name: "TVS Star City Plus", price: "₹74,990", desc: "Perfect commuter bike", img: "https://images.unsplash.com/photo-1558981285-6f0c94958bb6?w=400" }
+            ],
+            scooters: [
+                { id: 5, name: "TVS Jupiter", price: "₹74,990", desc: "India's favorite family scooter", img: "https://images.unsplash.com/photo-1534158914592-062992fbe990?w=400" },
+                { id: 6, name: "TVS Ntorq 125", price: "₹82,270", desc: "Sporty scooter with racing DNA", img: "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=400" },
+                { id: 7, name: "TVS Scooty Pep Plus", price: "₹64,000", desc: "Lightweight and stylish", img: "https://images.unsplash.com/photo-1558981852-426c6c22a060?w=400" },
+                { id: 8, name: "TVS Scooty Zest 110", price: "₹71,790", desc: "Smart and efficient", img: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=400" }
+            ],
+            electric: [
+                { id: 9, name: "TVS iQube Electric", price: "₹1,09,000", desc: "Smart electric scooter", img: "https://images.unsplash.com/photo-1593941707882-badf23d3f85e?w=400" },
+                { id: 10, name: "TVS X Electric", price: "₹1,25,000", desc: "Premium electric experience", img: "https://images.unsplash.com/photo-1593941707882-badf23d3f85e?w=400" },
+                { id: 11, name: "TVS Creon", price: "₹1,50,000", desc: "High-performance electric", img: "https://images.unsplash.com/photo-1593941707882-badf23d3f85e?w=400" },
+                { id: 12, name: "TVS Qube", price: "₹95,000", desc: "Eco-friendly urban commuter", img: "https://images.unsplash.com/photo-1593941707882-badf23d3f85e?w=400" }
+            ]
+        };
+
+        let currentProduct = null;
+
+        function displayProducts(category = 'all') {
+            const grid = document.getElementById('productGrid');
+            let allProducts = [];
+            
+            if (category === 'all') {
+                allProducts = [...products.motorcycles, ...products.scooters, ...products.electric];
+            } else {
+                allProducts = products[category];
+            }
+            
+            grid.innerHTML = allProducts.map(product => `
+                <div class="product-card">
+                    <img src="${product.img}" alt="${product.name}">
+                    <div class="product-info">
+                        <h3>${product.name}</h3>
+                        <p>${product.desc}</p>
+                        <div class="price">${product.price}</div>
+                        <button class="buy-btn" onclick="openPaymentModal('${product.name}', '${product.price}', '${category}', ${product.id})">Buy Now</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterProducts(category) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            displayProducts(category);
+        }
+
+        function openPaymentModal(name, price, type, id) {
+            let currentUser = localStorage.getItem('currentUser');
+            if (!currentUser) {
+                alert('Please login to complete purchase');
+                window.location.href = 'dashboard.html';
+                return;
+            }
+            
+            currentProduct = { name, price, type, id };
+            document.getElementById('productDetails').innerHTML = `
+                <div style="background: #f8f9fa; padding: 1rem; border-radius: 10px; margin-bottom: 1rem;">
+                    <strong>${name}</strong><br>
+                    Price: ${price}
+                </div>
+            `;
+            document.getElementById('paymentModal').style.display = 'flex';
+            hideAllForms();
+        }
+
+        function closeModal() {
+            document.getElementById('paymentModal').style.display = 'none';
+            hideAllForms();
+            document.getElementById('successMessage').style.display = 'none';
+        }
+
+        function showPaymentForm(type) {
+            hideAllForms();
+            document.getElementById(type + 'Form').style.display = 'block';
+        }
+
+        function hideAllForms() {
+            document.getElementById('cardForm').style.display = 'none';
+            document.getElementById('upiForm').style.display = 'none';
+            document.getElementById('netbankingForm').style.display = 'none';
+        }
+
+        function processPayment(method) {
+            if (!currentProduct) return;
+            
+            let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            
+            const order = {
+                id: Date.now(),
+                productName: currentProduct.name,
+                productPrice: currentProduct.price,
+                productType: currentProduct.type,
+                productId: currentProduct.id,
+                paymentMethod: method,
+                date: new Date().toLocaleString(),
+                userEmail: currentUser.email
+            };
+            
+            let orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            orders.push(order);
+            localStorage.setItem('orders', JSON.stringify(orders));
+            
+            document.getElementById('successMessage').innerHTML = `
+                ✅ Payment Successful!<br>
+                Thank you for purchasing ${currentProduct.name}<br>
+                Order ID: #${order.id}<br>
+                <a href="dashboard.html" style="color: #ff6b35;">View My Orders</a>
+            `;
+            document.getElementById('successMessage').style.display = 'block';
+            hideAllForms();
+            
+            setTimeout(() => {
+                closeModal();
+            }, 3000);
+        }
+
+        // Initialize
+        displayProducts('all');
+        
+        window.onclick = function(event) {
+            const modal = document.getElementById('paymentModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
