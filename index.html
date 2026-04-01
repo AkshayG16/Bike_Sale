@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TVS Bike Sales - Premium Two-Wheelers</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(0, 0, 0, 0.95);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            color: #ff6b35;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: #ff6b35;
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=1200');
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: slideIn 1s ease;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: slideIn 1s ease 0.3s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #ff6b35;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: transform 0.3s;
+            animation: slideIn 1s ease 0.6s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(255,107,53,0.4);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Categories */
+        .categories {
+            padding: 4rem 2rem;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .category-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .category-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .category-card h3 {
+            padding: 1.5rem;
+            text-align: center;
+            color: #ff6b35;
+        }
+
+        .category-card p {
+            padding: 0 1.5rem 1.5rem;
+            text-align: center;
+            color: #666;
+        }
+
+        /* Featured Products */
+        .featured {
+            padding: 4rem 2rem;
+            background: #f8f9fa;
+        }
+
+        .product-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-info h3 {
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .price {
+            color: #ff6b35;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+
+        .buy-btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: #ff6b35;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+            text-align: center;
+        }
+
+        .buy-btn:hover {
+            background: #e55a2b;
+        }
+
+        /* Advertisement */
+        .advertisement {
+            padding: 3rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .ad-grid {
+            max-width: 1000px;
+            margin: 2rem auto 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .ad-item {
+            background: rgba(255,255,255,0.1);
+            padding: 1rem;
+            border-radius: 10px;
+        }
+
+        .ad-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #111;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .close {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .payment-option {
+            margin: 1rem 0;
+        }
+
+        .payment-option button {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .payment-option button:hover {
+            background: #ff6b35;
+            color: white;
+        }
+
+        .payment-form {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .payment-form input {
+            width: 100%;
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 1rem;
+            background: #d4edda;
+            color: #155724;
+            border-radius: 5px;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">TVS <span>Bikes</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="products.html">Our Products</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Ride the Future with TVS</h1>
+            <p>Discover the perfect blend of style, performance, and innovation</p>
+            <a href="products.html" class="cta-button">Explore Now</a>
+        </div>
+    </section>
+
+    <section class="categories">
+        <h2 class="section-title">Our Categories</h2>
+        <div class="category-grid">
+            <a href="products.html?category=motorcycles" class="category-card">
+                <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=400" alt="Motorcycles">
+                <h3>Motorcycles</h3>
+                <p>Powerful performance machines</p>
+            </a>
+            <a href="products.html?category=scooters" class="category-card">
+                <img src="https://images.unsplash.com/photo-1534158914592-062992fbe990?w=400" alt="Scooters">
+                <h3>Scooters</h3>
+                <p>Style meets convenience</p>
+            </a>
+            <a href="products.html?category=electric" class="category-card">
+                <img src="https://images.unsplash.com/photo-1593941707882-badf23d3f85e?w=400" alt="Electric Vehicles">
+                <h3>Electric Vehicles</h3>
+                <p>Eco-friendly future</p>
+            </a>
+        </div>
+    </section>
+
+    <section class="featured">
+        <h2 class="section-title">Featured Bikes</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=400" alt="Apache RTR 160">
+                <div class="product-info">
+                    <h3>TVS Apache RTR 160</h3>
+                    <p>Performance beast with race-inspired design</p>
+                    <div class="price">₹1,17,790</div>
+                    <button class="buy-btn" onclick="openPaymentModal('TVS Apache RTR 160', '₹1,17,790', 'motorcycle', 1)">Buy Now</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1534158914592-062992fbe990?w=400" alt="Jupiter">
+                <div class="product-info">
+                    <h3>TVS Jupiter</h3>
+                    <p>India's favorite family scooter</p>
+                    <div class="price">₹74,990</div>
+                    <button class="buy-btn" onclick="openPaymentModal('TVS Jupiter', '₹74,990', 'scooter', 2)">Buy Now</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1593941707882-badf23d3f85e?w=400" alt="iQube">
+                <div class="product-info">
+                    <h3>TVS iQube Electric</h3>
+                    <p>Smart electric scooter for modern commuting</p>
+                    <div class="price">₹1,09,000</div>
+                    <button class="buy-btn" onclick="openPaymentModal('TVS iQube Electric', '₹1,09,000', 'electric', 3)">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="advertisement">
+        <h2>TVS Advertisement</h2>
+        <div class="ad-grid">
+            <div class="ad-item">
+                <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=400" alt="Ad 1">
+                <p>Experience the Thrill</p>
+            </div>
+            <div class="ad-item">
+                <img src="https://images.unsplash.com/photo-1534158914592-062992fbe990?w=400" alt="Ad 2">
+                <p>Style Your Ride</p>
+            </div>
+            <div class="ad-item">
+                <img src="https://images.unsplash.com/photo-1593941707882-badf23d3f85e?w=400" alt="Ad 3">
+                <p>Go Green</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal" id="paymentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Complete Your Purchase</h3>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div id="productDetails"></div>
+            <div class="payment-option">
+                <h4>Select Payment Method</h4>
+                <button onclick="showPaymentForm('card')">💳 Credit/Debit Card</button>
+                <button onclick="showPaymentForm('upi')">📱 UPI</button>
+                <button onclick="showPaymentForm('netbanking')">🏦 Net Banking</button>
+            </div>
+            <div id="cardForm" class="payment-form">
+                <h4>Card Details</h4>
+                <input type="text" id="cardNumber" placeholder="Card Number" maxlength="16">
+                <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5">
+                <input type="text" id="cardCVV" placeholder="CVV" maxlength="3">
+                <button class="buy-btn" onclick="processPayment('card')">Pay Now</button>
+            </div>
+            <div id="upiForm" class="payment-form">
+                <h4>UPI Details</h4>
+                <input type="text" id="upiId" placeholder="Enter UPI ID (e.g., name@okhdfcbank)">
+                <button class="buy-btn" onclick="processPayment('upi')">Pay Now</button>
+            </div>
+            <div id="netbankingForm" class="payment-form">
+                <h4>Net Banking</h4>
+                <select id="bankSelect" style="width: 100%; padding: 0.5rem; margin: 0.5rem 0;">
+                    <option>SBI</option>
+                    <option>HDFC Bank</option>
+                    <option>ICICI Bank</option>
+                    <option>Axis Bank</option>
+                </select>
+                <button class="buy-btn" onclick="processPayment('netbanking')">Proceed to Bank</button>
+            </div>
+            <div id="successMessage" class="success-message"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 TVS Bike Sales. All rights reserved. | Designed with ❤️ for riders</p>
+    </footer>
+
+    <script>
+        let currentProduct = null;
+
+        function openPaymentModal(name, price, type, id) {
+            currentProduct = { name, price, type, id };
+            document.getElementById('productDetails').innerHTML = `
+                <div style="background: #f8f9fa; padding: 1rem; border-radius: 10px; margin-bottom: 1rem;">
+                    <strong>${name}</strong><br>
+                    Price: ${price}
+                </div>
+            `;
+            document.getElementById('paymentModal').style.display = 'flex';
+            hideAllForms();
+        }
+
+        function closeModal() {
+            document.getElementById('paymentModal').style.display = 'none';
+            hideAllForms();
+            document.getElementById('successMessage').style.display = 'none';
+        }
+
+        function showPaymentForm(type) {
+            hideAllForms();
+            document.getElementById(type + 'Form').style.display = 'block';
+        }
+
+        function hideAllForms() {
+            document.getElementById('cardForm').style.display = 'none';
+            document.getElementById('upiForm').style.display = 'none';
+            document.getElementById('netbankingForm').style.display = 'none';
+        }
+
+        function processPayment(method) {
+            if (!currentProduct) return;
+            
+            // Get current user
+            let currentUser = localStorage.getItem('currentUser');
+            if (!currentUser) {
+                alert('Please login to complete purchase');
+                window.location.href = 'dashboard.html';
+                return;
+            }
+            
+            currentUser = JSON.parse(currentUser);
+            
+            // Create order
+            const order = {
+                id: Date.now(),
+                productName: currentProduct.name,
+                productPrice: currentProduct.price,
+                productType: currentProduct.type,
+                productId: currentProduct.id,
+                paymentMethod: method,
+                date: new Date().toLocaleString(),
+                userEmail: currentUser.email
+            };
+            
+            // Save to localStorage
+            let orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            orders.push(order);
+            localStorage.setItem('orders', JSON.stringify(orders));
+            
+            // Show success
+            document.getElementById('successMessage').innerHTML = `
+                ✅ Payment Successful!<br>
+                Thank you for purchasing ${currentProduct.name}<br>
+                Order ID: #${order.id}<br>
+                <a href="dashboard.html" style="color: #ff6b35;">View My Orders</a>
+            `;
+            document.getElementById('successMessage').style.display = 'block';
+            hideAllForms();
+            
+            // Auto close after 3 seconds
+            setTimeout(() => {
+                closeModal();
+            }, 3000);
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('paymentModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
