@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard - TVS Bike Sales</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: rgba(0, 0, 0, 0.95);
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            color: #ff6b35;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: #ff6b35;
+            color: white;
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        /* Auth Forms */
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 70vh;
+        }
+
+        .auth-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-width: 450px;
+            width: 100%;
+        }
+
+        .auth-card h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #eee;
+        }
+
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 0.8rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .auth-tab.active {
+            color: #ff6b35;
+            border-bottom: 2px solid #ff6b35;
+            margin-bottom: -2px;
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .gender-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .gender-group label {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            cursor: pointer;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 0.8rem;
+            background: #ff6b35;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background: #e55a2b;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 0.8rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 0.8rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        /* User Dashboard */
+        .user-info {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .user-info h2 {
+            color: #ff6b35;
+            margin-bottom: 1rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .info-item {
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .info-item strong {
+            display: block;
+            color: #555;
+            margin-bottom: 0.5rem;
+        }
+
+        .orders-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .orders-section h3 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .orders-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .orders-table th, .orders-table td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .orders-table th {
+            background: #f8f9fa;
+            color: #555;
+        }
+
+        .empty-orders {
+            text-align: center;
+            padding: 2rem;
+            color: #999;
+        }
+
+        .logout-btn {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.8rem 1.5rem;
+            background: #dc3545;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: #c82333;
+        }
+
+        .footer {
+            background: #111;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .orders-table {
+                font-size: 0.8rem;
+            }
+            
+            .orders-table th, .orders-table td {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">TVS <span>Bikes</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Our Products</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="dashboard.html" class="active">Dashboard</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="dashboard-container" id="dashboardContainer"></div>
+
+    <footer class="footer">
+        <p>&copy; 2024 TVS Bike Sales. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Check if user is logged in
+        function checkAuth() {
+            const currentUser = localStorage.getItem('currentUser');
+            if (currentUser) {
+                showUserDashboard(JSON.parse(currentUser));
+            } else {
+                showAuthForms();
+            }
+        }
+
+        // Show Login/Signup Forms
+        function showAuthForms() {
+            const container = document.getElementById('dashboardContainer');
+            container.innerHTML = `
+                <div class="auth-container">
+                    <div class="auth-card">
+                        <div class="auth-tabs">
+                            <button class="auth-tab active" onclick="switchTab('login')">Login</button>
+                            <button class="auth-tab" onclick="switchTab('signup')">Sign Up</button>
+                        </div>
+                        
+                        <div id="errorMessage" class="error-message"></div>
+                        <div id="successMessage" class="success-message"></div>
+                        
+                        <div id="loginForm" class="auth-form active">
+                            <form onsubmit="loginUser(event)">
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" id="loginEmail" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="password" id="loginPassword" required>
+                                </div>
+                                <button type="submit" class="btn-submit">Login</button>
+                            </form>
+                        </div>
+                        
+                        <div id="signupForm" class="auth-form">
+                            <form onsubmit="signupUser(event)">
+                                <div class="form-group">
+                                    <label>Full Name</label>
+                                    <input type="text" id="signupName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" id="signupEmail" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Phone</label>
+                                    <input type="tel" id="signupPhone" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Gender</label>
+                                    <div class="gender-group">
+                                        <label><input type="radio" name="gender" value="Male" required> Male</label>
+                                        <label><input type="radio" name="gender" value="Female"> Female</label>
+                                        <label><input type="radio" name="gender" value="Other"> Other</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="password" id="signupPassword" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Confirm Password</label>
+                                    <input type="password" id="signupConfirmPassword" required>
+                                </div>
+                                <button type="submit" class="btn-submit">Create Account</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Switch between login and signup tabs
+        function switchTab(tab) {
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            const tabs = document.querySelectorAll('.auth-tab');
+            
+            if (tab === 'login') {
+                loginForm.classList.add('active');
+                signupForm.classList.remove('active');
+                tabs[0].classList.add('active');
+                tabs[1].classList.remove('active');
+            } else {
+                loginForm.classList.remove('active');
+                signupForm.classList.add('active');
+                tabs[0].classList.remove('active');
+                tabs[1].classList.add('active');
+            }
+            
+            // Clear messages
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
+        }
+
+        // Login User
+        function loginUser(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(u => u.email === email && u.password === password);
+            
+            if (user) {
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                document.getElementById('successMessage').innerHTML = 'Login successful! Redirecting...';
+                document.getElementById('successMessage').style.display = 'block';
+                setTimeout(() => {
+                    checkAuth();
+                }, 1000);
+            } else {
+                document.getElementById('errorMessage').innerHTML = 'Invalid email or password!';
+                document.getElementById('errorMessage').style.display = 'block';
+            }
+        }
+
+        // Signup User
+        function signupUser(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const phone = document.getElementById('signupPhone').value;
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('signupConfirmPassword').value;
+            
+            // Validation
+            if (name.length < 3) {
+                showError('Name must be at least 3 characters');
+                return;
+            }
+            
+            if (!email.includes('@')) {
+                showError('Invalid email address');
+                return;
+            }
+            
+            if (phone.length !== 10 || isNaN(phone)) {
+                showError('Phone number must be 10 digits');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showError('Password must be at least 6 characters');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                showError('Passwords do not match');
+                return;
+            }
+            
+            // Check if email exists
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            if (users.find(u => u.email === email)) {
+                showError('Email already registered!');
+                return;
+            }
+            
+            // Create new user
+            const newUser = {
+                id: Date.now(),
+                name,
+                email,
+                phone,
+                gender,
+                password
+            };
+            
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            document.getElementById('successMessage').innerHTML = 'Account created successfully! Please login.';
+            document.getElementById('successMessage').style.display = 'block';
+            
+            setTimeout(() => {
+                switchTab('login');
+                document.getElementById('loginEmail').value = email;
+            }, 1500);
+        }
+
+        function showError(message) {
+            document.getElementById('errorMessage').innerHTML = message;
+            document.getElementById('errorMessage').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('errorMessage').style.display = 'none';
+            }, 3000);
+        }
+
+        // Show User Dashboard
+        function showUserDashboard(user) {
+            const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            const userOrders = orders.filter(order => order.userEmail === user.email);
+            
+            const container = document.getElementById('dashboardContainer');
+            container.innerHTML = `
+                <div class="user-info">
+                    <h2>Welcome, ${user.name}!</h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <strong>Email</strong>
+                            ${user.email}
+                        </div>
+                        <div class="info-item">
+                            <strong>Phone</strong>
+                            ${user.phone}
+                        </div>
+                        <div class="info-item">
+                            <strong>Gender</strong>
+                            ${user.gender}
+                        </div>
+                        <div class="info-item">
+                            <strong>Member Since</strong>
+                            ${new Date(user.id).toLocaleDateString()}
+                        </div>
+                    </div>
+                    <button onclick="logout()" class="logout-btn">Logout</button>
+                </div>
+                
+                <div class="orders-section">
+                    <h3>My Orders</h3>
+                    ${userOrders.length > 0 ? `
+                        <table class="orders-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>Payment Method</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${userOrders.map(order => `
+                                    <tr>
+                                        <td>#${order.id}</td>
+                                        <td>${order.productName}</td>
+                                        <td>${order.productPrice}</td>
+                                        <td>${order.paymentMethod.toUpperCase()}</td>
+                                        <td>${order.date}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    ` : `
+                        <div class="empty-orders">
+                            <p>No orders yet!</p>
+                            <a href="products.html" style="color: #ff6b35;">Browse Products →</a>
+                        </div>
+                    `}
+                </div>
+            `;
+        }
+
+        // Logout
+        function logout() {
+            localStorage.removeItem('currentUser');
+            checkAuth();
+        }
+
+        // Initialize
+        checkAuth();
+    </script>
+</body>
+</html>
