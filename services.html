@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - TVS Bike Sales</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+        }
+
+        .navbar {
+            background: rgba(0, 0, 0, 0.95);
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            color: #ff6b35;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: #ff6b35;
+            color: white;
+        }
+
+        .services-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .services-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .services-grid {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .service-content {
+            padding: 1.5rem;
+        }
+
+        .service-content h3 {
+            color: #ff6b35;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .service-content p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .service-features {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .service-features li {
+            padding: 0.5rem 0;
+            color: #555;
+            border-bottom: 1px solid #eee;
+        }
+
+        .service-features li:before {
+            content: "✓";
+            color: #ff6b35;
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .cta-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: white;
+            color: #ff6b35;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: transform 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+        }
+
+        .footer {
+            background: #111;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .services-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">TVS <span>Bikes</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Our Products</a></li>
+                <li><a href="services.html" class="active">Services</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="services-header">
+        <h1>Our Premium Services</h1>
+        <p>We don't just sell bikes, we build relationships</p>
+    </div>
+
+    <div class="services-grid">
+        <div class="service-card">
+            <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=400" alt="Maintenance">
+            <div class="service-content">
+                <h3>🔧 Maintenance & Repairs</h3>
+                <p>Expert technicians with state-of-the-art diagnostic tools ensure your bike runs perfectly.</p>
+                <ul class="service-features">
+                    <li>Free inspection with every service</li>
+                    <li>Genuine TVS spare parts</li>
+                    <li>48-hour service guarantee</li>
+                    <li>Pick-up & drop service available</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="service-card">
+            <img src="https://images.unsplash.com/photo-1558981852-426c6c22a060?w=400" alt="Customization">
+            <div class="service-content">
+                <h3>🎨 Customization</h3>
+                <p>Make your bike truly yours with our premium customization options.</p>
+                <ul class="service-features">
+                    <li>Custom paint jobs & graphics</li>
+                    <li>Performance upgrades</li>
+                    <li>Accessory installation</li>
+                    <li>LED lighting kits</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="service-card">
+            <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=400" alt="Roadside Assistance">
+            <div class="service-content">
+                <h3>🚨 24/7 Roadside Assistance</h3>
+                <p>Never worry about breakdowns with our round-the-clock support.</p>
+                <ul class="service-features">
+                    <li>Towing service within 50km</li>
+                    <li>Fuel delivery</li>
+                    <li>Tyre puncture repair</li>
+                    <li>Battery jump-start</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="service-card">
+            <img src="https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=400" alt="Free Servicing">
+            <div class="service-content">
+                <h3>✨ Free Servicing</h3>
+                <p>First 3 services absolutely free on new bike purchases.</p>
+                <ul class="service-features">
+                    <li>1st service at 500km</li>
+                    <li>2nd service at 3000km</li>
+                    <li>3rd service at 6000km</li>
+                    <li>Includes oil change & inspection</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="service-card">
+            <img src="https://images.unsplash.com/photo-1558981285-6f0c94958bb6?w=400" alt="Finance">
+            <div class="service-content">
+                <h3>💰 Easy Finance & Insurance</h3>
+                <p>Affordable financing options with minimal paperwork.</p>
+                <ul class="service-features">
+                    <li>Up to 100% financing</li>
+                    <li>Flexible EMI options</li>
+                    <li>Zero down payment offers</li>
+                    <li>Comprehensive insurance</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="service-card">
+            <img src="https://images.unsplash.com/photo-1593941707882-badf23d3f85e?w=400" alt="Exchange">
+            <div class="service-content">
+                <h3>🔄 Exchange Program</h3>
+                <p>Upgrade to a new TVS by exchanging your old bike.</p>
+                <ul class="service-features">
+                    <li>Best resale value guarantee</li>
+                    <li>Free valuation</li>
+                    <li>Instant approval</li>
+                    <li>Transfer assistance</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="cta-section">
+        <h2>Need Assistance?</h2>
+        <p>Our expert team is ready to help you 24/7</p>
+        <a href="dashboard.html" class="cta-button">Book a Service</a>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 TVS Bike Sales. All rights reserved.</p>
+    </footer>
+</body>
+</html>
